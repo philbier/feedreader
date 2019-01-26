@@ -98,26 +98,24 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
         it('are loaded', function(){
-            feed = document.querySelector('.feed');    
-            expect(feed.children[0].classList[0]).toBe('entry-link');
+            entry = $(".feed .entry");
+            expect(entry).toBeDefined();
         });
         
     });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection',function(){
-        let feed, entry1, entry2;
+        let entries1, entries2;
 
         beforeEach(function(done){
-            feed = document.querySelector('.feed');
-
             loadFeed(0,function(){
-                entry1 = feed.children[0].textContent;
-            });
+                entries1 = $('.feed').html();
             
-            loadFeed(1,function(){
-                entry2 = feed.children[0].textContent;
-                done();
+                loadFeed(1,function(){
+                    entries2 = $('.feed').html();
+                    done();
+                });
             });
             
         });
@@ -127,7 +125,7 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
         it('is different', function(){
-           expect(entry1).not.toBe(entry2);  
+           expect(entries1).not.toBe(entries2);  
         });
     });
 }());
